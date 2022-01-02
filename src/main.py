@@ -1,16 +1,16 @@
-# This is a sample Python script.
+from typing import List
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from src.Loader import CsvLoader
+from src.models.Wine import Wine
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+RED_CSV = 'Resources/winequality-red.csv'
+WHITE_CSV = 'Resources/winequality-white.csv'
 
 
-# Press the green button in the gutter to run the script.
+def main():
+    wine_list: List[Wine] = CsvLoader.load('%s' % RED_CSV,skip_header=True)
+    print(wine_list)
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main()
