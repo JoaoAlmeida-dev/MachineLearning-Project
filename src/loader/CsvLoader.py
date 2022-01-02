@@ -15,11 +15,11 @@ def load(filename: str, skip_header: bool = True) -> List[Wine]:
         # displaying the contents of the CSV file
         for lines in csvFile:
             fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides, free_sulfur_dioxide, total_sulfur_dioxide, density, pH, sulphates, alcohol, output = lines[0].split(";")
-            wine = Wine(fixed_acidity=fixed_acidity, volatile_acidity=volatile_acidity,
-                        citric_acid=citric_acid, residual_sugar=residual_sugar, chlorides=chlorides,
-                        free_sulfur_dioxide=free_sulfur_dioxide,
-                        total_sulfur_dioxide=total_sulfur_dioxide, density=density, pH=pH, sulphates=sulphates,
-                        alcohol=alcohol, output=output)
+            wine = Wine(fixed_acidity=float(fixed_acidity), volatile_acidity=float(volatile_acidity),
+                        citric_acid=float(citric_acid), residual_sugar=float(residual_sugar), chlorides=float(chlorides),
+                        free_sulfur_dioxide=float(free_sulfur_dioxide),
+                        total_sulfur_dioxide=float(total_sulfur_dioxide), density=float(density), pH=float(pH), sulphates=float(sulphates),
+                        alcohol=float(alcohol), output=float(output))
             wine_list.append(wine)
 
     return wine_list
