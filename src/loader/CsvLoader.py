@@ -2,9 +2,13 @@ import csv
 from typing import List
 
 from src.models.Wine import Wine
+from src.models.WineSet import WineSet
 
 
-def load(filename: str, skip_header: bool = True) -> List[Wine]:
+def load_panda(filename: str):
+    pass
+
+def load(filename: str, skip_header: bool = True) -> WineSet:
     wine_list: List[Wine] = []
 
     # opening the CSV file
@@ -22,4 +26,4 @@ def load(filename: str, skip_header: bool = True) -> List[Wine]:
                         alcohol=float(alcohol), output=float(output))
             wine_list.append(wine)
 
-    return wine_list
+    return WineSet(wine_list=wine_list)

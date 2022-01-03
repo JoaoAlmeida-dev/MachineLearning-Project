@@ -7,8 +7,7 @@ from numpy import ndarray
 
 
 class Wine:
-
-    #region CONSTANTS
+    # region CONSTANTS
     HEADERS: List[str] = ["fixed_acidity", "volatile_acidity", "citric_acid", "residual_sugar", "chlorides",
                           "free_sulfur_dioxide", "total_sulfur_dioxide", "density", "pH", "sulphates", "alcohol",
                           "output", ]
@@ -19,7 +18,7 @@ class Wine:
 
     N_VARIABLES: int = len(HEADERS) - 1
 
-    #endregion
+    # endregion
 
     # region VARIABLES
 
@@ -38,8 +37,10 @@ class Wine:
     _quality: float
     _ndarray: ndarray
 
-    # endregion
+    _features_ndarray: ndarray
+    _labels_ndarray: ndarray
 
+    # endregion
 
     def __init__(self, fixed_acidity: float = -1, volatile_acidity: float = -1, citric_acid: float = -1,
                  residual_sugar: float = -1,
@@ -58,27 +59,26 @@ class Wine:
         self.sulphates = sulphates
         self.alcohol = alcohol
         self._quality = output
-        self._ndarray = numpy.asarray([
-            self.fixed_acidity,
-            self.volatile_acidity,
-            self.citric_acid,
-            self.residual_sugar,
-            self.chlorides,
-            self.free_sulfur_dioxide,
-            self.total_sulfur_dioxide,
-            self.density,
-            self.pH,
-            self.sulphates,
-            self.alcohol
-        ])
+
+        self._ndarray = numpy.asarray([ self.fixed_acidity, self.volatile_acidity, self.citric_acid, self.residual_sugar, self.chlorides, self.free_sulfur_dioxide, self.total_sulfur_dioxide, self.density, self.pH, self.sulphates, self.alcohol, self._quality])
+        self._features_ndarray = numpy.asarray([ self.fixed_acidity, self.volatile_acidity, self.citric_acid, self.residual_sugar, self.chlorides, self.free_sulfur_dioxide, self.total_sulfur_dioxide, self.density, self.pH, self.sulphates, self.alcohol ])
+        self._labels_ndarray = numpy.asarray([self._quality, ])
 
     @property
-    def quality(self):
-        return self._quality
+    def labels_asNDArray(self):
+        return self._labels_ndarray
+
+    @property
+    def features_asNDArray(self):
+        return self._features_ndarray
 
     @property
     def asNDArray(self):
         return self._ndarray
+
+    @property
+    def quality(self):
+        return self._quality
 
     def __getitem__(self, index):
         if index == 0:
