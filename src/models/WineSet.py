@@ -11,5 +11,8 @@ class WineSet:
 
     def __init__(self, wine_list: List[Wine]):
         self.wine_list = wine_list
+        self._len = len(wine_list)
         self.transposed = wine_list_Transpose(wine_list)
 
+    def __len__(self):
+        return self._len

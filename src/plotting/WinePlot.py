@@ -13,7 +13,9 @@ def plotWineSet(wine_set: WineSet):
 
     for plot_index in range(1,Wine.N_VARIABLES+1):
         plt.subplot(row_count, row_count, plot_index)
-        plt.plot(np.arange(0, len(wine_set.wine_list)), wine_set_transposed[plot_index - 1])
+        #plt.plot(wine_set_transposed[plot_index - 1])
+        #plt.plot(np.arange(0, len(wine_set.wine_list)), wine_set_transposed[plot_index - 1])
+        plt.hist(wine_set_transposed[plot_index - 1],bins=20)
         plt.title(Wine.HEADERS[plot_index-1])
     plt.tight_layout()
     plt.show()

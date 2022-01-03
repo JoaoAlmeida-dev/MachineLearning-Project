@@ -17,17 +17,15 @@ WHITE_CSV = 'Resources/winequality-white.csv'
 def main():
 
     wine_list: List[Wine] = CsvLoader.load('%s' % RED_CSV, skip_header=True)
-    print(wine_list)
-    print("len=", len(wine_list))
-    RandomRemoval(dataset=wine_list, removal_percentage=0.1)
-    print("len=", len(wine_list))
-    wine_list_transpose: ndarray = wine_list_Transpose(wine_list=wine_list)
     wine_set: WineSet = WineSet(wine_list)
-    wine_set_transposed = wine_set.transposed
+    print(wine_list)
+    print("len=", len(wine_set))
+    RandomRemoval(dataset=wine_set, removal_percentage=0.1)
+    print("len=", len(wine_set))
 
+    #plotWineSet(wine_set)
 
-    plotWineSet(wine_set)
-
+    print(features,labels)
 
 if __name__ == '__main__':
     main()

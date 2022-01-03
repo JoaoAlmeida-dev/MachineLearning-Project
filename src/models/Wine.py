@@ -7,10 +7,10 @@ from numpy import ndarray
 
 
 class Wine:
-    N_VARIABLES: int = 11
     HEADERS: List[str] = ["fixed_acidity", "volatile_acidity", "citric_acid", "residual_sugar", "chlorides",
                          "free_sulfur_dioxide", "total_sulfur_dioxide", "density", "pH", "sulphates", "alcohol",
                          "output",]
+    N_VARIABLES: int = len(HEADERS)-1
     fixed_acidity: float
     volatile_acidity: float
     citric_acid: float
@@ -22,13 +22,13 @@ class Wine:
     pH: float
     sulphates: float
     alcohol: float
-    output: float
+    _quality: float
 
     _ndarray: ndarray
 
-    def __init__(self, fixed_acidity: float, volatile_acidity: float, citric_acid: float, residual_sugar: float,
-                 chlorides: float, free_sulfur_dioxide: float, total_sulfur_dioxide: float, density: float, pH: float,
-                 sulphates: float, alcohol: float, output: float = 0):
+    def __init__(self, fixed_acidity: float = -1, volatile_acidity: float = -1, citric_acid: float = -1, residual_sugar: float = -1,
+                 chlorides: float = -1, free_sulfur_dioxide: float = -1, total_sulfur_dioxide: float = -1, density: float = -1, pH: float = -1,
+                 sulphates: float = -1, alcohol: float = -1, output: float = 0):
         self.fixed_acidity = fixed_acidity
         self.volatile_acidity = volatile_acidity
         self.citric_acid = citric_acid
@@ -40,7 +40,7 @@ class Wine:
         self.pH = pH
         self.sulphates = sulphates
         self.alcohol = alcohol
-        self.output = output
+        self._quality = output
         self._ndarray = numpy.asarray([
             self.fixed_acidity,
             self.volatile_acidity,
@@ -54,6 +54,9 @@ class Wine:
             self.sulphates,
             self.alcohol
         ])
+
+    @property
+    def quality(self): return self._quality
 
     def __getitem__(self, index):
         if index == 0:
@@ -88,7 +91,7 @@ class Wine:
                                                                str(self.chlorides), str(self.free_sulfur_dioxide),
                                                                str(self.total_sulfur_dioxide), str(self.density),
                                                                str(self.pH), str(self.sulphates), str(self.alcohol),
-                                                               str(self.output))
+                                                               str(self.quality))
 
     def __repr__(self):
         return self.__str__()
