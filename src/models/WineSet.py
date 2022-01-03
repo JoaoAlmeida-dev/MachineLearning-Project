@@ -13,6 +13,11 @@ class WineSet:
         self.wine_list = wine_list
         self._len = len(wine_list)
         self.transposed = wine_list_Transpose(wine_list)
+        self._asNDarray = numpy.asarray(self.wine_list)
 
     def __len__(self):
         return self._len
+
+    @property
+    def asNDarray(self):
+        return self._asNDarray

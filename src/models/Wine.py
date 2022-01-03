@@ -7,10 +7,22 @@ from numpy import ndarray
 
 
 class Wine:
+
+    #region CONSTANTS
     HEADERS: List[str] = ["fixed_acidity", "volatile_acidity", "citric_acid", "residual_sugar", "chlorides",
-                         "free_sulfur_dioxide", "total_sulfur_dioxide", "density", "pH", "sulphates", "alcohol",
-                         "output",]
-    N_VARIABLES: int = len(HEADERS)-1
+                          "free_sulfur_dioxide", "total_sulfur_dioxide", "density", "pH", "sulphates", "alcohol",
+                          "output", ]
+    FEATURES: List[str] = ["fixed_acidity", "volatile_acidity", "citric_acid", "residual_sugar", "chlorides",
+                           "free_sulfur_dioxide", "total_sulfur_dioxide", "density", "pH", "sulphates", "alcohol",
+                           ]
+    LABELS: List[str] = ["quality"]
+
+    N_VARIABLES: int = len(HEADERS) - 1
+
+    #endregion
+
+    # region VARIABLES
+
     fixed_acidity: float
     volatile_acidity: float
     citric_acid: float
@@ -22,12 +34,17 @@ class Wine:
     pH: float
     sulphates: float
     alcohol: float
-    _quality: float
 
+    _quality: float
     _ndarray: ndarray
 
-    def __init__(self, fixed_acidity: float = -1, volatile_acidity: float = -1, citric_acid: float = -1, residual_sugar: float = -1,
-                 chlorides: float = -1, free_sulfur_dioxide: float = -1, total_sulfur_dioxide: float = -1, density: float = -1, pH: float = -1,
+    # endregion
+
+
+    def __init__(self, fixed_acidity: float = -1, volatile_acidity: float = -1, citric_acid: float = -1,
+                 residual_sugar: float = -1,
+                 chlorides: float = -1, free_sulfur_dioxide: float = -1, total_sulfur_dioxide: float = -1,
+                 density: float = -1, pH: float = -1,
                  sulphates: float = -1, alcohol: float = -1, output: float = 0):
         self.fixed_acidity = fixed_acidity
         self.volatile_acidity = volatile_acidity
@@ -56,7 +73,12 @@ class Wine:
         ])
 
     @property
-    def quality(self): return self._quality
+    def quality(self):
+        return self._quality
+
+    @property
+    def asNDArray(self):
+        return self._ndarray
 
     def __getitem__(self, index):
         if index == 0:
@@ -81,9 +103,6 @@ class Wine:
             return self.sulphates
         elif index == 10:
             return self.alcohol
-
-    def toNdArray(self):
-        return self._ndarray
 
     def __str__(self):
         return "{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}".format(str(self.fixed_acidity), str(self.volatile_acidity),
