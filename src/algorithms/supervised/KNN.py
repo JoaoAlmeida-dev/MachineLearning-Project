@@ -6,7 +6,7 @@ from src.main import RED_CSV
 
 
 def main():
-    data = pd.read_csv("/home/joao/PycharmProjects/pythonProject/Resources/winequality-red.csv", sep=";")
+    data = pd.read_csv("../../../Resources/winequality-red.csv", sep=";")
 
     features = data[['fixed_acidity', 'volatile_acidity', 'citric_acid', 'residual_sugar', 'chlorides',
                      'free_sulfur_dioxide', 'total_sulfur_dioxide', 'density', 'pH', 'sulphates', 'alcohol'
