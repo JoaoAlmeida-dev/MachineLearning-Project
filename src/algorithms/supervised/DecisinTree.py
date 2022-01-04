@@ -18,5 +18,5 @@ class DecisionTree:
 
         predictions = knn.predict(features_test)
         accuracy = sklearn.metrics.accuracy_score(labels_test, predictions)
-        print(cls.decisionTreeString,"predicitons", predictions)
+        #print(cls.decisionTreeString,"predicitons", predictions)
         print(cls.decisionTreeString,"accuracy", accuracy)

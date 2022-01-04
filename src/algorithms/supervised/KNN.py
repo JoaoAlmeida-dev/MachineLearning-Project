@@ -7,6 +7,8 @@ from src.models.WineSet import WineSet
 
 
 class KNN:
+    knnString:str = "KNN"
+
     @classmethod
     def run(cls, wine_set: WineSet):
         features = wine_set.features_asNDArray
@@ -18,8 +20,8 @@ class KNN:
 
         predictions = knn.predict(features_test)
         accuracy = metrics.accuracy_score(labels_test, predictions)
-        print("predicitons", predictions)
-        print("accuracy", accuracy)
+        #print(cls.knnString,"predicitons", predictions)
+        print(cls.knnString,"accuracy", accuracy)
 
 
 def main():
