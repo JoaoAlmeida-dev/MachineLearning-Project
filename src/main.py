@@ -1,3 +1,4 @@
+from src.algorithms.supervised.DecisinTree import DecisionTree
 from src.constants.Constants import RED_CSV
 from src.algorithms.supervised.KNN import KNN
 from src.dataTreatment.RandomRemoval import RandomRemoval
@@ -12,8 +13,8 @@ def main():
     RandomRemoval(dataset=wine_set, removal_percentage=0.1)
     print("len=", len(wine_set))
 
-    KNN.run(wine_set=wine_set)
-
+    #KNN.run(wine_set=wine_set)
+    DecisionTree.run(wine_set=wine_set)
     # plotWineSet(wine_set)
 
 
