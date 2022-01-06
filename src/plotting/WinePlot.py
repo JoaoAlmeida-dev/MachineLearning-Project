@@ -7,7 +7,7 @@ from typing import List
 from src.models.WineSet import WineSet
 
 
-def plotWineSet(wine_set: WineSet):
+def plot_wine_set(wine_set: WineSet):
     row_count = int(Wine.N_VARIABLES ** 0.5) +1
 
     for header_index, header_string in enumerate(Wine.HEADERS):

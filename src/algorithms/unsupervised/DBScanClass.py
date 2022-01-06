@@ -7,12 +7,12 @@ from src.models.WineSet import WineSet
 import  sklearn
 
 class DBScanClass:
-    algoName:str = "DBscan"
+    algo_name:str = "DBscan"
 
     @classmethod
     def run(cls, wine_set: WineSet) -> DBSCAN:
-        features = wine_set.features_asNDArray
-        labels = wine_set.labels_asNDArray
+        features = wine_set.features_as_ndarray
+        labels = wine_set.labels_as_ndarray
 
         features_train, features_test, labels_train, labels_test = model_selection.train_test_split(features, labels,
                                                                                                     test_size=0.2)
@@ -22,6 +22,6 @@ class DBScanClass:
         #accuracy = sklearn.metrics.accuracy_score(labels_test, predictions)
         ##print(cls.multiLayerPercetronString, "predicitons", predictions)
         #print(cls.dBscanString, "accuracy", accuracy)
-        print("ran", cls.algoName)
+        print("ran", cls.algo_name)
         return algorithm
 

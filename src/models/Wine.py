@@ -31,7 +31,7 @@ class Wine:
     free_sulfur_dioxide: float
     total_sulfur_dioxide: float
     density: float
-    pH: float
+    ph: float
     sulphates: float
     alcohol: float
 
@@ -43,7 +43,7 @@ class Wine:
 
     # endregion
     @classmethod
-    def build_Series(cls, series: Series):
+    def build_from_series(cls, series: Series):
 
         return Wine(fixed_acidity=series[0],
                     volatile_acidity=series[1],
@@ -53,7 +53,7 @@ class Wine:
                     free_sulfur_dioxide=series[5],
                     total_sulfur_dioxide=series[6],
                     density=series[7],
-                    pH=series[8],
+                    ph=series[8],
                     sulphates=series[9],
                     alcohol=series[10],
                     output=series[11],
@@ -62,7 +62,7 @@ class Wine:
     def __init__(self, fixed_acidity: float = -1, volatile_acidity: float = -1, citric_acid: float = -1,
                  residual_sugar: float = -1,
                  chlorides: float = -1, free_sulfur_dioxide: float = -1, total_sulfur_dioxide: float = -1,
-                 density: float = -1, pH: float = -1,
+                 density: float = -1, ph: float = -1,
                  sulphates: float = -1, alcohol: float = -1, output: float = 0):
         self.fixed_acidity = fixed_acidity
         self.volatile_acidity = volatile_acidity
@@ -72,30 +72,30 @@ class Wine:
         self.free_sulfur_dioxide = free_sulfur_dioxide
         self.total_sulfur_dioxide = total_sulfur_dioxide
         self.density = density
-        self.pH = pH
+        self.ph = ph
         self.sulphates = sulphates
         self.alcohol = alcohol
         self._quality = output
 
         self._ndarray = numpy.asarray(
             [self.fixed_acidity, self.volatile_acidity, self.citric_acid, self.residual_sugar, self.chlorides,
-             self.free_sulfur_dioxide, self.total_sulfur_dioxide, self.density, self.pH, self.sulphates, self.alcohol,
+             self.free_sulfur_dioxide, self.total_sulfur_dioxide, self.density, self.ph, self.sulphates, self.alcohol,
              self._quality])
         self._features_ndarray = numpy.asarray(
             [self.fixed_acidity, self.volatile_acidity, self.citric_acid, self.residual_sugar, self.chlorides,
-             self.free_sulfur_dioxide, self.total_sulfur_dioxide, self.density, self.pH, self.sulphates, self.alcohol])
+             self.free_sulfur_dioxide, self.total_sulfur_dioxide, self.density, self.ph, self.sulphates, self.alcohol])
         self._labels_ndarray = numpy.asarray([self._quality, ])
 
     @property
-    def labels_asNDArray(self):
+    def labels_as_ndarray(self):
         return self._labels_ndarray
 
     @property
-    def features_asNDArray(self):
+    def features_as_ndarray(self):
         return self._features_ndarray
 
     @property
-    def asNDArray(self):
+    def as_ndarray(self):
         return self._ndarray
 
     @property
@@ -120,7 +120,7 @@ class Wine:
         elif index == 7:
             return self.density
         elif index == 8:
-            return self.pH
+            return self.ph
         elif index == 9:
             return self.sulphates
         elif index == 10:
@@ -135,7 +135,7 @@ class Wine:
                                                                             str(self.free_sulfur_dioxide),
                                                                             str(self.total_sulfur_dioxide),
                                                                             str(self.density),
-                                                                            str(self.pH), str(self.sulphates),
+                                                                            str(self.ph), str(self.sulphates),
                                                                             str(self.alcohol),
                                                                             str(self.quality))
 

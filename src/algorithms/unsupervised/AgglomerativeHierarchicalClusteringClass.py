@@ -6,12 +6,12 @@ from src.models.WineSet import WineSet
 import  sklearn
 
 class AgglomerativeHierarchicalClusteringClass:
-    algoName:str = "AgglomerativeHierarchicalClustering"
+    algo_name:str = "AgglomerativeHierarchicalClustering"
 
     @classmethod
     def run(cls, wine_set: WineSet) -> AgglomerativeClustering:
-        features = wine_set.features_asNDArray
-        labels = wine_set.labels_asNDArray
+        features = wine_set.features_as_ndarray
+        labels = wine_set.labels_as_ndarray
 
         features_train, features_test, labels_train, labels_test = model_selection.train_test_split(features, labels,
                                                                                                     test_size=0.2)
@@ -21,5 +21,5 @@ class AgglomerativeHierarchicalClusteringClass:
         #accuracy = sklearn.metrics.accuracy_score(labels_test, predictions)
         ##print(cls.multiLayerPercetronString, "predicitons", predictions)
         #print(cls.algoName, "accuracy", accuracy)
-        print("ran", cls.algoName)
+        print("ran", cls.algo_name)
         return algorithm

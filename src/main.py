@@ -18,7 +18,7 @@ from src.dataTreatment.RandomRemoval import random_removal_mean
 from src.loader import CsvLoader
 from src.models.WineSet import WineSet
 from src.plotting import WinePlot
-from src.plotting.WinePlot import plotWineSet
+from src.plotting.WinePlot import plot_wine_set
 
 
 def main():
@@ -28,15 +28,15 @@ def main():
     algo = False
     plot = True
     # wine_set: WineSet = CsvLoader.load_List('%s' % RED_CSV, skip_header=True)
-    wine_set: WineSet = CsvLoader.load_Dataframe('%s' % RED_CSV, skip_header=True)
-    wine_set2: WineSet = CsvLoader.load_Dataframe('%s' % RED_CSV, skip_header=True)
+    wine_set: WineSet = CsvLoader.load_dataframe('%s' % RED_CSV, skip_header=True)
+    wine_set2: WineSet = CsvLoader.load_dataframe('%s' % RED_CSV, skip_header=True)
     print(wine_set.wine_dataframe.head)
     print("len=", len(wine_set))
     random_removal_mean(dataset=wine_set, removal_percentage=0.1)
-    plotWineSet(wine_set)
+    plot_wine_set(wine_set)
 
     random_removal_mean(dataset=wine_set2, removal_percentage=0.9)
-    plotWineSet(wine_set2)
+    plot_wine_set(wine_set2)
 
 
 
