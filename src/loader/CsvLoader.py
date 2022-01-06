@@ -1,4 +1,7 @@
 import csv
+
+import pandas
+
 from typing import List
 
 from src.models.Wine import Wine
@@ -8,7 +11,11 @@ from src.models.WineSet import WineSet
 def load_panda(filename: str):
     pass
 
-def load(filename: str, skip_header: bool = True) -> WineSet:
+def load_Dataframe(filename: str, skip_header: bool = True) -> WineSet:
+    file_df = pandas.read_csv(filename,sep=";")
+    return WineSet(file_df)
+
+def load_List(filename: str, skip_header: bool = True) -> WineSet:
     wine_list: List[Wine] = []
 
     # opening the CSV file

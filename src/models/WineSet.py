@@ -1,6 +1,7 @@
 from typing import List
 
 import numpy
+import pandas as pd
 from numpy import ndarray
 from pandas import DataFrame
 
@@ -14,7 +15,7 @@ class WineSetIterator:
         self._index = 0
 
     def __next__(self):
-        if self._index < len(self._wineSet) :
+        if self._index < len(self._wineSet):
             result = self._wineSet[self._index]
             self._index += 1
             return result
@@ -22,28 +23,37 @@ class WineSetIterator:
             # End of Iteration
             raise StopIteration
 
+
 class WineSet:
 
-    def __init__(self, wine_list: List[Wine] = None, wine_dataframe: DataFrame = None):
-        if wine_list is not None:
-            self.wine_list = wine_list
-            self.transposed = wine_list_Transpose(wine_list)
+    def __init__(self, data):
+        if isinstance(data, List):
+            self.wine_list = data
 
             NDarray = []
             features_asNDArray = []
             labels_asNDArray = []
-            for wine in wine_list:
+            for wine in data:
                 NDarray.append(wine.asNDArray)
                 features_asNDArray.append(wine.features_asNDArray)
                 labels_asNDArray.append(wine.labels_asNDArray)
 
-            self._asNDarray:ndarray = numpy.asarray(NDarray)
-            self._features_asNDArray:ndarray = numpy.asarray(features_asNDArray)
-            self._labels_asNDArray:ndarray = numpy.asarray(labels_asNDArray)
+            self.wine_dataframe = pd.DataFrame(NDarray, columns=Wine.HEADERS)
+            self.transposed = self.wine_dataframe.T
 
-        elif wine_dataframe is not None:
-            # wine_list =
-            pass
+            self._asNDarray: ndarray = numpy.asarray(NDarray)
+            self._features_asNDArray: ndarray = numpy.asarray(features_asNDArray)
+            self._labels_asNDArray: ndarray = numpy.asarray(labels_asNDArray)
+
+        elif isinstance(data, DataFrame):
+            self.wine_list =  [ Wine.build_Series(series) for (index , series) in data.iterrows()]
+            self.wine_dataframe = data
+            self.transposed = data.T
+
+            self._asNDarray: ndarray = numpy.asarray(data.values.tolist())
+            self._features_asNDArray: ndarray = numpy.asarray(data[Wine.FEATURES].values.tolist())
+            self._labels_asNDArray: ndarray = numpy.asarray(data[Wine.LABELS].values.tolist())
+            print()
 
     def __len__(self):
         return len(self.wine_list)
@@ -53,6 +63,17 @@ class WineSet:
 
     def __getitem__(self, item):
         return self.wine_list[item]
+
+    def __str__(self):
+        strRepr: str = "[\n"
+        for wine in self.wine_list:
+            strRepr += str(wine) + "\n"
+        strRepr += "]\n"
+
+        return strRepr
+
+    def __repr__(self):
+        return self.__str__()
 
     @property
     def features_asNDArray(self):
@@ -65,5 +86,3 @@ class WineSet:
     @property
     def asNDarray(self):
         return self._asNDarray
-
-
