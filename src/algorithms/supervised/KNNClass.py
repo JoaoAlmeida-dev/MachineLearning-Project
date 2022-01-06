@@ -8,7 +8,7 @@ from src.models.Wine import Wine
 from src.models.WineSet import WineSet
 
 
-class KNN:
+class KNNClass:
     algoName:str = "KNN"
 
     @classmethod

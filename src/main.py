@@ -1,15 +1,16 @@
 import pandas as pd
-from sklearn.cluster import AgglomerativeClustering, DBSCAN
+from sklearn.cluster import AgglomerativeClustering, DBSCAN, KMeans
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.tree import DecisionTreeClassifier
 
-from src.algorithms.supervised.DecisionTree import DecisionTree
-from src.algorithms.supervised.MultiLayerPercetron import MultiLayerPercetron
-from src.algorithms.unsupervised.AgglomerativeHierarchicalClustering import AgglomerativeHierarchicalClustering
-from src.algorithms.unsupervised.DBScan import DBScan
+from src.algorithms.supervised.DecisionTreeClass import DecisionTreeClass
+from src.algorithms.supervised.MultiLayerPercetronClass import MultiLayerPercetronClass
+from src.algorithms.unsupervised.AgglomerativeHierarchicalClusteringClass import AgglomerativeHierarchicalClusteringClass
+from src.algorithms.unsupervised.DBScanClass import DBScanClass
+from src.algorithms.unsupervised.KMeansClass import KMeansClass
 from src.constants.Constants import RED_CSV
-from src.algorithms.supervised.KNN import KNN
+from src.algorithms.supervised.KNNClass import KNNClass
 from src.dataTreatment.RandomRemoval import RandomRemoval
 from src.loader import CsvLoader
 from src.models.WineSet import WineSet
@@ -24,17 +25,17 @@ def main():
 
     # region Supervised
 
-    knn: KNeighborsClassifier = KNN.run(wine_set=wine_set)
-    decisionTree: DecisionTreeClassifier = DecisionTree.run(wine_set=wine_set)
-    mlp: MLPClassifier = MultiLayerPercetron.run(wine_set=wine_set)
+    knn: KNeighborsClassifier = KNNClass.run(wine_set=wine_set)
+    decisionTree: DecisionTreeClassifier = DecisionTreeClass.run(wine_set=wine_set)
+    mlp: MLPClassifier = MultiLayerPercetronClass.run(wine_set=wine_set)
 
     # endregion
 
     # region Unsupervised
 
-    agglomerative = AgglomerativeHierarchicalClustering.run(wine_set=wine_set)
-    dbscan: DBSCAN = DBScan.run(wine_set=wine_set)
-
+    agglomerative = AgglomerativeHierarchicalClusteringClass.run(wine_set=wine_set)
+    dbscan: DBSCAN = DBScanClass.run(wine_set=wine_set)
+    kmeans: KMeans = KMeansClass.run(wine_set=wine_set)
     # endregion
 
 
