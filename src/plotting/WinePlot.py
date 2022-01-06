@@ -9,13 +9,11 @@ from src.models.WineSet import WineSet
 
 def plotWineSet(wine_set: WineSet):
     row_count = int(Wine.N_VARIABLES ** 0.5) +1
-    wine_set_transposed = wine_set.transposed
 
-    for plot_index in range(1,Wine.N_VARIABLES+1):
-        plt.subplot(row_count, row_count, plot_index)
-        #plt.plot(wine_set_transposed[plot_index - 1])
-        #plt.plot(np.arange(0, len(wine_set.wine_list)), wine_set_transposed[plot_index - 1])
-        plt.hist(wine_set_transposed[plot_index - 1],bins=20)
-        plt.title(Wine.HEADERS[plot_index-1])
+    for header_index, header_string in enumerate(Wine.HEADERS):
+        plt.subplot(row_count, row_count, header_index+1)
+        plt.title(header_string)
+        wine_set.wine_dataframe.loc[:,header_string].plot()
+
     plt.tight_layout()
     plt.show()

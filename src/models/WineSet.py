@@ -46,14 +46,22 @@ class WineSet:
             self._labels_asNDArray: ndarray = numpy.asarray(labels_asNDArray)
 
         elif isinstance(data, DataFrame):
-            self.wine_list =  [ Wine.build_Series(series) for (index , series) in data.iterrows()]
+            self.wine_list = [Wine.build_Series(series) for (index, series) in data.iterrows()]
             self.wine_dataframe = data
             self.transposed = data.T
 
             self._asNDarray: ndarray = numpy.asarray(data.values.tolist())
             self._features_asNDArray: ndarray = numpy.asarray(data[Wine.FEATURES].values.tolist())
             self._labels_asNDArray: ndarray = numpy.asarray(data[Wine.LABELS].values.tolist())
-            print()
+
+
+    def rebuild_from_dataframe(self):
+        self.wine_list = [Wine.build_Series(series) for (index, series) in self.wine_dataframe.iterrows()]
+        self.transposed = self.wine_dataframe.T
+
+        self._asNDarray: ndarray = numpy.asarray(self.wine_dataframe.values.tolist())
+        self._features_asNDArray: ndarray = numpy.asarray(self.wine_dataframe[Wine.FEATURES].values.tolist())
+        self._labels_asNDArray: ndarray = numpy.asarray(self.wine_dataframe[Wine.LABELS].values.tolist())
 
     def __len__(self):
         return len(self.wine_list)
