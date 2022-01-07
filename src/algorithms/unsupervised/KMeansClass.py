@@ -19,7 +19,7 @@ class KMeansClass:
         fit = algorithm.fit(features_train)
         predictions = algorithm.predict(features_test)
         accuracy = sklearn.metrics.accuracy_score(labels_test, predictions)
-        print(cls.algo_name, "predicitons", predictions)
+        #print(cls.algo_name, "predicitons", predictions)
         print(cls.algo_name, "accuracy", accuracy)
         print("ran", cls.algo_name)
         return algorithm

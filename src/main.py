@@ -25,7 +25,7 @@ def main():
     random.seed(1)
 
 
-    algo = False
+    algo = True
     plot = True
     # wine_set: WineSet = CsvLoader.load_List('%s' % RED_CSV, skip_header=True)
     wine_set: WineSet = CsvLoader.load_dataframe('%s' % RED_CSV, skip_header=True)
@@ -34,11 +34,6 @@ def main():
     print("len=", len(wine_set))
     random_removal_mean(dataset=wine_set, removal_percentage=0.1)
     plot_wine_set(wine_set)
-
-    random_removal_mean(dataset=wine_set2, removal_percentage=0.9)
-    plot_wine_set(wine_set2)
-
-
 
     if algo:
         # region Supervised

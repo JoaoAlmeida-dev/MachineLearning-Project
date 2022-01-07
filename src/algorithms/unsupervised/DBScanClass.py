@@ -18,10 +18,10 @@ class DBScanClass:
                                                                                                     test_size=0.2)
         algorithm: DBSCAN = DBSCAN()
 
-        predictions = algorithm.fit_predict(features_train)
-        #accuracy = sklearn.metrics.accuracy_score(labels_test, predictions)
+        predictions = algorithm.fit_predict(features_test)
+        accuracy = sklearn.metrics.accuracy_score(labels_test, predictions)
         ##print(cls.multiLayerPercetronString, "predicitons", predictions)
-        #print(cls.dBscanString, "accuracy", accuracy)
+        print(cls.algo_name, "accuracy", accuracy)
         print("ran", cls.algo_name)
         return algorithm
 
