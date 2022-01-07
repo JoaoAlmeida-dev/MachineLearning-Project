@@ -25,6 +25,11 @@ class WineSetIterator:
 
 
 class WineSet:
+    wine_dataframe: DataFrame
+    transposed: DataFrame
+    _asNDarray: ndarray
+    _features_asNDArray: ndarray
+    _labels_asNDArray: ndarray
 
     def __init__(self, data):
         if isinstance(data, List):

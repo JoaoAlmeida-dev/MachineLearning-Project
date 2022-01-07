@@ -18,7 +18,8 @@ class KNNClass:
 
         features_train, features_test, labels_train, labels_test = model_selection.train_test_split(features, labels,
                                                                                                     test_size=0.2)
-        algorithm: KNeighborsClassifier = neighbors.KNeighborsClassifier(n_neighbors=5, weights="uniform").fit(features_train, labels_train)
+        algorithm: KNeighborsClassifier = neighbors.KNeighborsClassifier(n_neighbors=5, weights="uniform")
+        algorithm.fit(features_train, labels_train)
 
         predictions = algorithm.predict(features_test)
         accuracy = metrics.accuracy_score(labels_test, predictions)
