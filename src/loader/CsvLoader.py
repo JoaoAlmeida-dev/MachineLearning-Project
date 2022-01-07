@@ -2,14 +2,23 @@ import csv
 
 import pandas
 
-from typing import List
+from typing import List, Union, Any
+
+from pandas import Series, DataFrame
+from pandas.core.generic import NDFrame
+from pandas.io.parsers import TextFileReader
 
 from src.models.Wine import Wine
 from src.models.WineSet import WineSet
 
 
-def load_dataframe(filename: str, skip_header: bool = True) -> WineSet:
-    file_df = pandas.read_csv(filename, sep=";")
+def load_raw_dataframe(filename: str):
+    return pandas.read_csv(filename, sep=";")
+
+
+def load_dataframe(filename: str) -> WineSet:
+    file_df: Union[Union[TextFileReader, Series, DataFrame, None, NDFrame], Any] = load_raw_dataframe(filename=filename)
+    #file_df[Wine.HEADERS] = file_df[Wine.HEADERS].astype(float)
     return WineSet(file_df)
 
 
@@ -38,4 +47,4 @@ def load_list(filename: str, skip_header: bool = True) -> WineSet:
                         alcohol=float(alcohol), output=float(output))
             wine_list.append(wine)
 
-    return WineSet(wine_list=wine_list)
+    return WineSet(data=wine_list)

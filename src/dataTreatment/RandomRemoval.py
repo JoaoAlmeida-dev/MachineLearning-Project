@@ -32,7 +32,7 @@ def random_removal_mean(dataset: WineSet, removal_percentage: float) -> WineSet:
             collumn_index: int = random.choice(range(0, len(Wine.FEATURES)))
             pos_to_change = (row_index, Wine.FEATURES[collumn_index])
 
-        dataframe.loc[row_index, Wine.FEATURES[collumn_index]] = means_list[collumn_index]
+        dataframe.loc[pos_to_change[0], pos_to_change[1]] = means_list[collumn_index]
         changed_row_collumns.append(pos_to_change)
 
     dataset.rebuild_from_dataframe()
