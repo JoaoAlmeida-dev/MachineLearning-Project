@@ -22,7 +22,7 @@ from src.models.WineSet import WineSet
 from src.plotting import WinePlot
 from src.plotting.WinePlot import plot_wine_set
 
-algo = False
+algo = True
 plot = True
 
 
@@ -48,8 +48,8 @@ def main():
     # normalize_set_log(wine_set_log)
     # plot_wine_set(wine_set_log,"wine_set_red-log")
 
-    normalize_set_range(wine_set_range, range=min_max_values)
-    plot_wine_set(wine_set_range, "wine_set_red-range")
+    #normalize_set_range(wine_set_range, range=min_max_values)
+    #plot_wine_set(wine_set_range, "wine_set_red-range")
 
     if algo:
         # region Supervised
