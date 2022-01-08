@@ -9,7 +9,7 @@ from src.models.WineSet import WineSet
 
 
 def normalize_set_log(wine_set: WineSet):
-    def _log_item(item: float, collumn_name: str) -> float:
+    def _log_item(item: float, column_name: str) -> float:
         if item <= 0:
             item = 0.01
         log = math.log(item)
@@ -18,13 +18,13 @@ def normalize_set_log(wine_set: WineSet):
     _normalize(wine_set=wine_set, normalizing_operation=_log_item)
 
 
-def normalize_set_range(wine_set: WineSet, range: DataFrame):
-    def _range_item(item: float, collumn_name: str) -> float:
-        min_column: str = collumn_name + "_min"
-        max_column: str = collumn_name + "_max"
+def normalize_set_range(wine_set: WineSet, range_dataframe: DataFrame, set_name: str):
+    def _range_item(item: float, column_name: str) -> float:
+        min_column: str = column_name + "_min"
+        max_column: str = column_name + "_max"
 
-        min_value: float = range.loc[0, min_column]
-        max_value: float = range.loc[0, max_column]
+        min_value: float = range_dataframe.loc[set_name, min_column]
+        max_value: float = range_dataframe.loc[set_name, max_column]
         if item > max_value:
             item = max_value
         elif item < min_value:
@@ -62,5 +62,5 @@ def _normalize(wine_set: WineSet, normalizing_operation: Callable):
             original_value = dataframe.loc[row_index, column_name]
 
             dataframe.loc[row_index, column_name] = normalizing_operation(item=original_value,
-                                                                          collumn_name=column_name)
+                                                                          column_name=column_name)
     wine_set.rebuild_from_dataframe()

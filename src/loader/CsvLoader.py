@@ -12,13 +12,13 @@ from src.models.Wine import Wine
 from src.models.WineSet import WineSet
 
 
-def load_raw_dataframe(filename: str):
-    return pandas.read_csv(filename, sep=";")
+def load_raw_dataframe(filename: str, index_col=False):
+    return pandas.read_csv(filename, sep=";", index_col=index_col)
 
 
 def load_dataframe(filename: str) -> WineSet:
     file_df: Union[Union[TextFileReader, Series, DataFrame, None, NDFrame], Any] = load_raw_dataframe(filename=filename)
-    #file_df[Wine.HEADERS] = file_df[Wine.HEADERS].astype(float)
+    # file_df[Wine.HEADERS] = file_df[Wine.HEADERS].astype(float)
     return WineSet(file_df)
 
 
