@@ -2,10 +2,11 @@ from sklearn import model_selection
 from sklearn.tree import DecisionTreeClassifier
 
 from src.models.WineSet import WineSet
-import  sklearn
+import sklearn
+
 
 class DecisionTreeClass:
-    algo_name:str = "DecisionTree"
+    algo_name: str = "DecisionTree"
 
     @classmethod
     def run(cls, wine_set: WineSet) -> DecisionTreeClassifier:
@@ -14,11 +15,13 @@ class DecisionTreeClass:
 
         features_train, features_test, labels_train, labels_test = model_selection.train_test_split(features, labels,
                                                                                                     test_size=0.2)
-        algorithm: DecisionTreeClassifier = DecisionTreeClassifier().fit(features_train, labels_train)
+        labels_train = labels_train.ravel()
+        algorithm: DecisionTreeClassifier = DecisionTreeClassifier()
+        algorithm.fit(features_train, labels_train)
 
         predictions = algorithm.predict(features_test)
         accuracy = sklearn.metrics.accuracy_score(labels_test, predictions)
-        #print(cls.decisionTreeString,"predicitons", predictions)
+        # print(cls.decisionTreeString,"predicitons", predictions)
         print(cls.algo_name, "accuracy", accuracy)
         print("ran", cls.algo_name)
         return algorithm

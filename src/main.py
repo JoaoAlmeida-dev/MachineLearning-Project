@@ -29,15 +29,16 @@ plot = True
 
 
 def run_algos(wine_set: WineSet):
-    # region Supervised
+# region Supervised
     knn: KNeighborsClassifier = KNNClass.run(wine_set=wine_set)
     decisionTree: DecisionTreeClassifier = DecisionTreeClass.run(wine_set=wine_set)
     mlp: MLPClassifier = MultiLayerPercetronClass.run(wine_set=wine_set)
-    # endregion
-    # region Unsupervised
+# endregion
+# region Unsupervised
     agglomerative = AgglomerativeHierarchicalClusteringClass.run(wine_set=wine_set)
     dbscan: DBSCAN = DBScanClass.run(wine_set=wine_set)
     kmeans: KMeans = KMeansClass.run(wine_set=wine_set)
+# endregion
 
 
 def normalize_set_plot(wine_set: WineSet, min_max_values: DataFrame, title: str):
@@ -52,7 +53,6 @@ def normalize_set_plot(wine_set: WineSet, min_max_values: DataFrame, title: str)
     plot_wine_set(wine_set_range, title + "-range")
 
 
-# endregion
 
 def main():
     random.seed(1)
@@ -71,15 +71,14 @@ def main():
     # print("len=", len(wine_set_red))
     # random_removal_mean(dataset=wine_set_red, removal_percentage=0.1)
 
-    #normalize_set_plot(wine_set=wine_set_red, min_max_values=min_max_values,title="wine_set_red")
+    # normalize_set_plot(wine_set=wine_set_red, min_max_values=min_max_values,title="wine_set_red")
 
-    plot_wine_set(wine_set_red,"wine_set_red")
-    wine_set_red=discretize(wine_set=wine_set_red,categories=categories,num_bins=5)
-    plot_wine_set(wine_set_red,"wine_set_red-qcut")
+    plot_wine_set(wine_set_red, "wine_set_red")
+    wine_set_red = discretize(wine_set=wine_set_red, categories=categories, num_bins=5)
+    plot_wine_set(wine_set_red, "wine_set_red-qcut")
 
     if algo:
         run_algos(wine_set=wine_set_red)
-
 
 
 if __name__ == '__main__':
