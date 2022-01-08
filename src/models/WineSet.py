@@ -5,7 +5,6 @@ import pandas as pd
 from numpy import ndarray
 from pandas import DataFrame
 
-from src.dataTreatment.WineTranspose import wine_list_transpose
 from src.models.Wine import Wine
 
 

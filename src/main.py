@@ -1,9 +1,8 @@
 import random
 from copy import copy
 
-import pandas as pd
 from pandas import DataFrame
-from sklearn.cluster import AgglomerativeClustering, DBSCAN, KMeans
+from sklearn.cluster import DBSCAN, KMeans
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.tree import DecisionTreeClassifier
@@ -18,10 +17,8 @@ from src.constants.Constants import RED_CSV, WHITE_CSV, MIN_MAX, CATEGORIES
 from src.algorithms.supervised.KNNClass import KNNClass
 from src.dataTreatment.DataDiscretization import discretize
 from src.dataTreatment.DataNormalization import normalize_set_log, normalize_set_range
-from src.dataTreatment.RandomRemoval import random_removal_mean
 from src.loader import CsvLoader
 from src.models.WineSet import WineSet
-from src.plotting import WinePlot
 from src.plotting.WinePlot import plot_wine_set
 
 algo = True
