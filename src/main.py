@@ -14,10 +14,10 @@ from src.algorithms.unsupervised.AgglomerativeHierarchicalClusteringClass import
     AgglomerativeHierarchicalClusteringClass
 from src.algorithms.unsupervised.DBScanClass import DBScanClass
 from src.algorithms.unsupervised.KMeansClass import KMeansClass
-from src.constants.Constants import RED_CSV, WHITE_CSV, MIN_MAX, CATEGORIES
+from src.constants.Constants import RED_CSV, WHITE_CSV, MIN_MAX, CATEGORIES, CORRELATIONS
 from src.dataTreatment.DataDiscretization import discretize
 from src.dataTreatment.DataNormalization import normalize_set_log, normalize_set_range, normalize_set_mean
-from src.helper.Correlation import correlate
+from src.helper.Correlation import correlate, explore_correlation
 from src.loader import CsvLoader
 from src.models.WineSet import WineSet
 from src.plotting.WinePlot import plot_hist_wine_set, plot_wine_set
@@ -64,14 +64,16 @@ def normalize_set_plot(wine_set: WineSet, min_max_values: DataFrame, title: str)
 
 def main():
     algo = False
-    plot_bool = True
-    normalize_and_plot_bool = True
-    discretize_and_plot_bool = True
-    correlate_bool = True
+    plot_bool = False
+    normalize_and_plot_bool = False
+    discretize_and_plot_bool = False
+    correlate_bool = False
 
     random.seed(1)
     min_max_values = CsvLoader.load_raw_dataframe('%s' % MIN_MAX, index_col=0)
     categories = CsvLoader.load_raw_dataframe('%s' % CATEGORIES)
+    correlations = CsvLoader.load_raw_dataframe('%s' % CORRELATIONS,index_col=0)
+    explore_correlation(correlations)
 
     print(min_max_values.head())
     print(categories.head())

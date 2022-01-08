@@ -21,11 +21,8 @@ def plot_hist_wine_set(wine_set: WineSet, plt_figure_name: str,bins:int):
     plt.show()
 
 def plot_wine_set(wine_set: WineSet, plt_figure_name: str):
-    row_count = int(Wine.N_VARIABLES ** 0.5) + 1
-    fig = plt.gcf()
-    fig.canvas.set_window_title(plt_figure_name)
+    #fig = plt.gcf()
+    #fig.canvas.set_window_title(plt_figure_name)
     wine_set.wine_dataframe.plot()
-
-
     plt.tight_layout()
     plt.show()
