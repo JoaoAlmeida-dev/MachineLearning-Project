@@ -1,8 +1,9 @@
 import math
 from typing import Callable
 
+import pandas
 from pandas import DataFrame
-
+from sklearn.preprocessing import StandardScaler
 from src.models.Wine import Wine
 from src.models.WineSet import WineSet
 
@@ -22,8 +23,8 @@ def normalize_set_range(wine_set: WineSet, range: DataFrame):
         min_column: str = collumn_name + "_min"
         max_column: str = collumn_name + "_max"
 
-        min_value: float = range.loc[0,min_column]
-        max_value: float = range.loc[0,max_column]
+        min_value: float = range.loc[0, min_column]
+        max_value: float = range.loc[0, max_column]
         if item > max_value:
             item = max_value
         elif item < min_value:
@@ -36,16 +37,30 @@ def normalize_set_range(wine_set: WineSet, range: DataFrame):
     _normalize(wine_set=wine_set, normalizing_operation=_range_item)
 
 
+def normalize_set_mean(wine_set: WineSet):
+    dataframe = wine_set.wine_dataframe
+    variables = Wine.FEATURES
+    target = Wine.LABELS
+    x = dataframe.loc[:, variables].values
+    y = dataframe.loc[:, target].values
+    x = StandardScaler().fit_transform(x)
+    x = pandas.DataFrame(x)
+    x.columns = variables
+    x[target] = y
+    wine_set.wine_dataframe = x
+    wine_set.rebuild_from_dataframe()
+
+
 def _normalize(wine_set: WineSet, normalizing_operation: Callable):
     dataframe: DataFrame = wine_set.wine_dataframe
 
     dataset_row_length: int = len(wine_set.wine_dataframe)
     dataset_column_length: int = len(wine_set.wine_dataframe.columns) - 1
     for row_index in range(dataset_row_length):
-        for collumn_index in range(dataset_column_length):
-            collumn_name = Wine.FEATURES[collumn_index]
-            original_value = dataframe.loc[row_index, collumn_name]
+        for column_index in range(dataset_column_length):
+            column_name = Wine.FEATURES[column_index]
+            original_value = dataframe.loc[row_index, column_name]
 
-            dataframe.loc[row_index, collumn_name] = normalizing_operation(item=original_value,
-                                                                           collumn_name=collumn_name)
+            dataframe.loc[row_index, column_name] = normalizing_operation(item=original_value,
+                                                                          collumn_name=column_name)
     wine_set.rebuild_from_dataframe()
