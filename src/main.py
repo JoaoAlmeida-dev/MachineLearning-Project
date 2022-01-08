@@ -14,7 +14,7 @@ from src.algorithms.unsupervised.AgglomerativeHierarchicalClusteringClass import
     AgglomerativeHierarchicalClusteringClass
 from src.algorithms.unsupervised.DBScanClass import DBScanClass
 from src.algorithms.unsupervised.KMeansClass import KMeansClass
-from src.constants.Constants import RED_CSV, WHITE_CSV, MIN_MAX
+from src.constants.Constants import RED_CSV, WHITE_CSV, MIN_MAX, CATEGORIES
 from src.algorithms.supervised.KNNClass import KNNClass
 from src.dataTreatment.DataDiscretization import discretize
 from src.dataTreatment.DataNormalization import normalize_set_log, normalize_set_range
@@ -74,7 +74,7 @@ def main():
     #normalize_set_plot(wine_set=wine_set_red, min_max_values=min_max_values,title="wine_set_red")
 
     plot_wine_set(wine_set_red,"wine_set_red")
-    wine_set_red=discretize(wine_set=wine_set_red,categories=categories)
+    wine_set_red=discretize(wine_set=wine_set_red,categories=categories,num_bins=5)
     plot_wine_set(wine_set_red,"wine_set_red-qcut")
 
     if algo:

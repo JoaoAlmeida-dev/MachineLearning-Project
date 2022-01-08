@@ -5,7 +5,7 @@ from src.models.Wine import Wine
 from src.models.WineSet import WineSet
 
 
-def discretize(wine_set: WineSet, categories: DataFrame):
+def discretize(wine_set: WineSet, categories: DataFrame, num_bins:int):
     dataframe = wine_set.wine_dataframe
 
     dataset_column_length: int = len(wine_set.wine_dataframe.columns)
@@ -15,5 +15,5 @@ def discretize(wine_set: WineSet, categories: DataFrame):
 
         labels = categories.loc[:, collumn_name]
         name_ = dataframe.loc[:, collumn_name]
-        new_dataframe[collumn_name] = pandas.cut(name_, bins=5, labels=range(5))
+        new_dataframe[collumn_name] = pandas.cut(name_, bins=num_bins, labels=range(num_bins))
     return WineSet(new_dataframe)
