@@ -5,10 +5,10 @@ import pandas as pd
 from numpy import ndarray
 from pandas import DataFrame
 
-from src.models.Wine import Wine
+#from src.models.Wine import Wine
 
 
-class WineSetIterator:
+"""class WineSetIterator:
     def __init__(self, wine_set):
         self._wine_set = wine_set
         self._index = 0
@@ -21,9 +21,9 @@ class WineSetIterator:
         else:
             # End of Iteration
             raise StopIteration
+"""
 
-
-class WineSet:
+"""class WineSet:
     wine_dataframe: DataFrame
     transposed: DataFrame
     _asNDarray: ndarray
@@ -98,3 +98,4 @@ class WineSet:
     @property
     def as_ndarray(self):
         return self._asNDarray
+"""

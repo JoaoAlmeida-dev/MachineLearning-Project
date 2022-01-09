@@ -1,17 +1,21 @@
+import numpy
+from numpy import ndarray
+from pandas import DataFrame
 from sklearn import model_selection
 from sklearn.tree import DecisionTreeClassifier
 
-from src.models.WineSet import WineSet
 import sklearn
+
+from src.constants.Constants import FEATURES, TARGET
 
 
 class DecisionTreeClass:
     algo_name: str = "DecisionTree"
 
     @classmethod
-    def run(cls, wine_set: WineSet) -> DecisionTreeClassifier:
-        features = wine_set.features_as_ndarray
-        labels = wine_set.labels_as_ndarray
+    def run(cls, wine_set: DataFrame) -> DecisionTreeClassifier:
+        features: ndarray = numpy.asarray(wine_set[:, wine_set.columns != TARGET].values.tolist())
+        labels: ndarray = numpy.asarray(wine_set[TARGET].values.tolist())
 
         features_train, features_test, labels_train, labels_test = model_selection.train_test_split(features, labels,
                                                                                                     test_size=0.2)

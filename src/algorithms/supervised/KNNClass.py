@@ -1,20 +1,24 @@
+import numpy
 import numpy as np
 import pandas as pd
+from numpy import ndarray
+from pandas import DataFrame
 from sklearn import neighbors, metrics
 from sklearn import model_selection
 from sklearn.neighbors import KNeighborsClassifier
 
-from src.models.Wine import Wine
-from src.models.WineSet import WineSet
+from src.constants.Constants import FEATURES, TARGET
 
 
 class KNNClass:
     algo_name:str = "KNN"
 
     @classmethod
-    def run(cls, wine_set: WineSet) -> KNeighborsClassifier:
-        features = wine_set.features_as_ndarray
-        labels = wine_set.labels_as_ndarray
+    def run(cls, wine_set: DataFrame) -> KNeighborsClassifier:
+        features = wine_set[:, wine_set.columns != TARGET]
+        features: ndarray = numpy.asarray(features.values.tolist())
+        labels: ndarray = numpy.asarray(wine_set[TARGET].values.tolist())
+
 
         features_train, features_test, labels_train, labels_test = model_selection.train_test_split(features, labels,
                                                                                                     test_size=0.2)
@@ -34,8 +38,8 @@ class KNNClass:
 def main():
     data = pd.read_csv("../../../res/winequality-red.csv", sep=";")
 
-    features = data[Wine.FEATURES]
-    labels = data[Wine.TARGET]
+    features = data[FEATURES]
+    labels = data[TARGET]
 
     features = np.array(features)
     labels = np.array(labels)

@@ -8,21 +8,19 @@ from pandas import Series, DataFrame
 from pandas.core.generic import NDFrame
 from pandas.io.parsers import TextFileReader
 
-from src.models.Wine import Wine
-from src.models.WineSet import WineSet
 
 
 def load_raw_dataframe(filename: str, index_col=False):
     return pandas.read_csv(filename, sep=";", index_col=index_col)
 
 
-def load_dataframe(filename: str) -> WineSet:
+def load_dataframe(filename: str) -> DataFrame:
     file_df: Union[Union[TextFileReader, Series, DataFrame, None, NDFrame], Any] = load_raw_dataframe(filename=filename)
     # file_df[Wine.HEADERS] = file_df[Wine.HEADERS].astype(float)
-    return WineSet(file_df)
+    return file_df
 
 
-def load_list(filename: str, skip_header: bool = True) -> WineSet:
+"""def load_list(filename: str, skip_header: bool = True) -> WineSet:
     wine_list: List[Wine] = []
 
     # opening the CSV file
@@ -48,3 +46,4 @@ def load_list(filename: str, skip_header: bool = True) -> WineSet:
             wine_list.append(wine)
 
     return WineSet(data=wine_list)
+"""

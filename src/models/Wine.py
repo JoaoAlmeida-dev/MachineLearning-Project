@@ -7,8 +7,9 @@ from numpy import ndarray
 from pandas import Series
 
 
-class Wine:
+"""class Wine:
     # region CONSTANTS
+    
     HEADERS: List[str] = ["fixed_acidity", "volatile_acidity", "citric_acid", "residual_sugar", "chlorides",
                           "free_sulfur_dioxide", "total_sulfur_dioxide", "density", "pH", "sulphates", "alcohol",
                           "quality", ]
@@ -16,6 +17,7 @@ class Wine:
                            "free_sulfur_dioxide", "total_sulfur_dioxide", "density", "pH", "sulphates", "alcohol",
                            ]
     TARGET: str = "quality"
+
 
     N_VARIABLES: int = len(HEADERS) - 1
 
@@ -141,3 +143,4 @@ class Wine:
 
     def __repr__(self):
         return self.__str__()
+"""

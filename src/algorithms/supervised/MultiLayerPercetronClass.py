@@ -1,16 +1,19 @@
+import numpy
+from numpy import ndarray
+from pandas import DataFrame
 from sklearn import model_selection
 from sklearn.neural_network import MLPClassifier
 
-from src.models.WineSet import WineSet
-import  sklearn
+from src.constants.Constants import FEATURES, TARGET
+import sklearn
 
 class MultiLayerPercetronClass:
     algo_name:str = "MultiLayerPercetron"
 
     @classmethod
-    def run(cls, wine_set: WineSet) -> MLPClassifier:
-        features = wine_set.features_as_ndarray
-        labels = wine_set.labels_as_ndarray
+    def run(cls, wine_set: DataFrame) -> MLPClassifier:
+        features: ndarray = numpy.asarray(wine_set[:, wine_set.columns != TARGET].values.tolist())
+        labels: ndarray = numpy.asarray(wine_set[TARGET].values.tolist())
 
         features_train, features_test, labels_train, labels_test = model_selection.train_test_split(features, labels,
                                                                                                     test_size=0.2)
