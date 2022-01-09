@@ -18,11 +18,17 @@ from src.constants.Constants import RED_CSV, WHITE_CSV, MIN_MAX, CATEGORIES, COR
 from src.dataTreatment.DataDiscretization import discretize
 from src.dataTreatment.DataNormalization import normalize_set_log, normalize_set_range, normalize_set_mean
 from src.dataTreatment.DataReduction import reduce
-from src.helper.Correlation import correlate, explore_correlation
+from src.helper.Correlation import correlate
 from src.loader import CsvLoader
 from src.models.WineSet import WineSet
 from src.plotting.WinePlot import plot_hist_wine_set, plot_wine_set
 
+ALGO = False
+PLOT_BOOL = False
+NORMALIZE_AND_PLOT_BOOL = False
+DISCRETIZE_AND_PLOT_BOOL = False
+CORRELATE_BOOL = False
+REDUCE_BOOL = True
 
 def run_algos(wine_set: WineSet):
     # region Supervised
@@ -64,12 +70,6 @@ def normalize_set_plot(wine_set: WineSet, min_max_values: DataFrame, title: str)
 
 
 def main():
-    algo = False
-    plot_bool = False
-    normalize_and_plot_bool = False
-    discretize_and_plot_bool = False
-    correlate_bool = False
-    reduce_bool = True
 
     random.seed(1)
     min_max_values = CsvLoader.load_raw_dataframe('%s' % MIN_MAX, index_col=0)
@@ -83,23 +83,23 @@ def main():
 
 
     # random_removal_mean(dataset=wine_set_red, removal_percentage=0.1)
-    if correlate_bool:
+    if CORRELATE_BOOL:
         correlate(wine_set_red)
 
-    if plot_bool:
+    if PLOT_BOOL:
         plot_wine_set(wine_set_red, plt_figure_name="wine_set_red_plot")
         plot_raw_dataset()
 
-    if normalize_and_plot_bool:
+    if NORMALIZE_AND_PLOT_BOOL:
         normalize_set_plot(wine_set=wine_set_red, min_max_values=min_max_values, title="wine_set_red")
 
-    if discretize_and_plot_bool:
+    if DISCRETIZE_AND_PLOT_BOOL:
         wine_set_red = discretize(wine_set=wine_set_red, categories=categories, num_bins=5)
 
-    if reduce_bool:
+    if REDUCE_BOOL:
         reduce(wine_set=wine_set_red, correlations=correlate(wine_set_red))
 
-    if algo:
+    if ALGO:
         run_algos(wine_set=wine_set_red)
 
 
