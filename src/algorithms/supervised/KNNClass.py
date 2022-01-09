@@ -32,7 +32,7 @@ class KNNClass:
 
 
 def main():
-    data = pd.read_csv("../../../Resources/winequality-red.csv", sep=";")
+    data = pd.read_csv("../../../res/winequality-red.csv", sep=";")
 
     features = data[Wine.FEATURES]
     labels = data[Wine.TARGET]

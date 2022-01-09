@@ -5,7 +5,7 @@ from src.models.Wine import Wine
 from src.models.WineSet import WineSet
 
 
-def discretize(wine_set: WineSet, categories: DataFrame, num_bins:int):
+def discretize(wine_set: WineSet, num_bins: int):
     dataframe = wine_set.wine_dataframe
 
     dataset_column_length: int = len(wine_set.wine_dataframe.columns)
