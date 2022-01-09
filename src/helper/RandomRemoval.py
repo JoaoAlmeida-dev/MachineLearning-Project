@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 #
 #
 # #
-def random_removal_mean(dataset: WineSet, removal_percentage: float) -> WineSet:
+def random_removal_mean(dataset: WineSet, removal_percentage: float):
     dataset_length: int = len(dataset)
     features_to_change: int = int(dataset_length * len(Wine.FEATURES) * removal_percentage)
     dataframe = dataset.wine_dataframe
@@ -36,7 +36,6 @@ def random_removal_mean(dataset: WineSet, removal_percentage: float) -> WineSet:
         changed_row_collumns.append(pos_to_change)
 
     dataset.rebuild_from_dataframe()
-    return dataset
 
 
 def random_removal_2(dataset: WineSet, removal_percentage: float) -> WineSet:

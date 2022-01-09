@@ -1,5 +1,6 @@
 import copy
 import random
+from typing import List
 
 from pandas import DataFrame
 from sklearn.cluster import DBSCAN, KMeans
@@ -19,6 +20,7 @@ from src.dataTreatment.DataDiscretization import discretize
 from src.dataTreatment.DataNormalization import normalize_set_log, normalize_set_range, normalize_set_mean
 from src.dataTreatment.DataReduction import reduce
 from src.helper.Correlation import correlate
+from src.helper.RandomRemoval import random_removal_mean
 from src.loader import CsvLoader
 from src.models.WineSet import WineSet
 from src.plotting.WinePlot import plot_hist_wine_set, plot_wine_set
@@ -30,6 +32,7 @@ DISCRETIZE = False
 REDUCE = True
 REMOVE = True
 ORIGINAL = True
+
 
 def run_algos(wine_set: WineSet):
     # region Supervised
@@ -53,7 +56,6 @@ def plot_raw_dataset():
 
 
 def main():
-
     random.seed(1)
     min_max_values = CsvLoader.load_raw_dataframe('%s' % MIN_MAX, index_col=0)
 
@@ -73,8 +75,45 @@ def main():
         plot_wine_set(wine_set_red, plt_figure_name="wine_set_red_plot")
         plot_raw_dataset()
 
-    if NORMALIZE_AND_PLOT_BOOL:
-        normalize_set_plot(wine_set=wine_set_red, min_max_values=min_max_values, title="wine_set_red")
+    if REMOVE:
+        removed_10_set_red = copy.deepcopy(wine_set_red)
+        random_removal_mean(dataset=removed_10_set_red, removal_percentage=0.1)
+        wine_set_list.append(removed_10_set_red)
+
+        removed_20_set_red = copy.deepcopy(wine_set_red)
+        random_removal_mean(dataset=removed_20_set_red, removal_percentage=0.2)
+        wine_set_list.append(removed_20_set_red)
+
+        removed_30_set_red = copy.deepcopy(wine_set_red)
+        random_removal_mean(dataset=removed_30_set_red, removal_percentage=0.3)
+        wine_set_list.append(removed_30_set_red)
+
+    if NORMALIZE:
+        #normalize_set_plot(wine_set=wine_set_red, min_max_values=min_max_values, title="wine_set_red")
+
+        red_normalize_log = copy.deepcopy(wine_set_red)
+        normalize_set_log(wine_set=red_normalize_log)
+        white_normalize_log = copy.deepcopy(wine_set_white)
+        normalize_set_log(wine_set=white_normalize_log)
+
+        red_normalize_range = copy.deepcopy(wine_set_red)
+        normalize_set_range(wine_set=red_normalize_range, range_dataframe=min_max_values, set_name="red")
+        white_normalize_range = copy.deepcopy(wine_set_white)
+        normalize_set_range(wine_set=white_normalize_range, range_dataframe=min_max_values, set_name="white")
+
+        red_normalize_mean = copy.deepcopy(wine_set_red)
+        normalize_set_mean(wine_set=red_normalize_mean)
+        white_normalize_mean = copy.deepcopy(wine_set_white)
+        normalize_set_mean(wine_set=white_normalize_mean)
+
+
+        wine_set_list.append(red_normalize_log)
+        wine_set_list.append(red_normalize_range)
+        wine_set_list.append(red_normalize_mean)
+        wine_set_list.append(white_normalize_log)
+        wine_set_list.append(white_normalize_range)
+        wine_set_list.append(white_normalize_mean)
+
 
     if DISCRETIZE:
         discretized_set_red = copy.deepcopy(wine_set_red)
@@ -94,7 +133,10 @@ def main():
         reduce(wine_set=reduced_set_white, correlations=reduced_set_correlations_white)
 
     if ALGO:
-        run_algos(wine_set=wine_set_red)
+        # make a dataframe with algorithm as rows and columns as tipe of treatment
+        for set in wine_set_list:
+            run_algos(wine_set=set)
+
 
 
 if __name__ == '__main__':
