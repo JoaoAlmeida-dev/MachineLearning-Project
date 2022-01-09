@@ -40,7 +40,7 @@ def normalize_set_range(wine_set: WineSet, range_dataframe: DataFrame, set_name:
 def normalize_set_mean(wine_set: WineSet):
     dataframe = wine_set.wine_dataframe
     variables = Wine.FEATURES
-    target = Wine.LABELS
+    target = Wine.TARGET
     x = dataframe.loc[:, variables].values
     y = dataframe.loc[:, target].values
     x = StandardScaler().fit_transform(x)

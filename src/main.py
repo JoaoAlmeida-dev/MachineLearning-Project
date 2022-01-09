@@ -17,7 +17,8 @@ from src.algorithms.unsupervised.KMeansClass import KMeansClass
 from src.constants.Constants import RED_CSV, WHITE_CSV, MIN_MAX, CATEGORIES, CORRELATIONS
 from src.dataTreatment.DataDiscretization import discretize
 from src.dataTreatment.DataNormalization import normalize_set_log, normalize_set_range, normalize_set_mean
-from src.helper.Correlation import correlate, explore_correlation, merge
+from src.dataTreatment.DataReduction import reduce
+from src.helper.Correlation import correlate, explore_correlation
 from src.loader import CsvLoader
 from src.models.WineSet import WineSet
 from src.plotting.WinePlot import plot_hist_wine_set, plot_wine_set
@@ -68,17 +69,18 @@ def main():
     normalize_and_plot_bool = False
     discretize_and_plot_bool = False
     correlate_bool = False
+    reduce_bool = True
 
     random.seed(1)
     min_max_values = CsvLoader.load_raw_dataframe('%s' % MIN_MAX, index_col=0)
     categories = CsvLoader.load_raw_dataframe('%s' % CATEGORIES)
-    correlations = CsvLoader.load_raw_dataframe('%s' % CORRELATIONS,index_col=0)
-    explore_correlation(correlations)
+    #correlations = CsvLoader.load_raw_dataframe('%s' % CORRELATIONS,index_col=0)
+    #explore_correlation(correlations)
     print(min_max_values.head())
     print(categories.head())
     wine_set_red: WineSet = CsvLoader.load_dataframe('%s' % RED_CSV)
     wine_set_white: WineSet = CsvLoader.load_dataframe('%s' % WHITE_CSV)
-    merge(wine_set=wine_set_red)
+
 
     # random_removal_mean(dataset=wine_set_red, removal_percentage=0.1)
     if correlate_bool:
@@ -93,6 +95,9 @@ def main():
 
     if discretize_and_plot_bool:
         wine_set_red = discretize(wine_set=wine_set_red, categories=categories, num_bins=5)
+
+    if reduce_bool:
+        reduce(wine_set=wine_set_red, correlations=correlate(wine_set_red))
 
     if algo:
         run_algos(wine_set=wine_set_red)

@@ -56,7 +56,7 @@ class WineSet:
 
             self._asNDarray: ndarray = numpy.asarray(data.values.tolist())
             self._features_asNDArray: ndarray = numpy.asarray(data[Wine.FEATURES].values.tolist())
-            self._labels_asNDArray: ndarray = numpy.asarray(data[Wine.LABELS].values.tolist())
+            self._labels_asNDArray: ndarray = numpy.asarray(data[Wine.TARGET].values.tolist())
 
 
     def rebuild_from_dataframe(self):
@@ -65,7 +65,7 @@ class WineSet:
 
         self._asNDarray: ndarray = numpy.asarray(self.wine_dataframe.values.tolist())
         self._features_asNDArray: ndarray = numpy.asarray(self.wine_dataframe[Wine.FEATURES].values.tolist())
-        self._labels_asNDArray: ndarray = numpy.asarray(self.wine_dataframe[Wine.LABELS].values.tolist())
+        self._labels_asNDArray: ndarray = numpy.asarray(self.wine_dataframe[Wine.TARGET].values.tolist())
 
     def __len__(self):
         return len(self.wine_list)

@@ -35,7 +35,7 @@ def main():
     data = pd.read_csv("../../../Resources/winequality-red.csv", sep=";")
 
     features = data[Wine.FEATURES]
-    labels = data[Wine.LABELS]
+    labels = data[Wine.TARGET]
 
     features = np.array(features)
     labels = np.array(labels)
