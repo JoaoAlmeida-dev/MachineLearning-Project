@@ -5,8 +5,6 @@ from src.models.WineSet import WineSet
 
 
 def reduce(wine_set: WineSet, correlations: DataFrame) -> WineSet:
-    dataframe = wine_set.wine_dataframe
-
     best_features_list: list = []
 
     for feature in Wine.FEATURES:
