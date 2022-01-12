@@ -13,7 +13,7 @@ class AgglomerativeHierarchicalClusteringClass:
 
     @classmethod
     def run(cls, wine_set: DataFrame) -> AgglomerativeClustering:
-        features: ndarray = numpy.asarray(wine_set[:, wine_set.columns != TARGET].values.tolist())
+        features: ndarray = numpy.asarray(wine_set.drop(labels=TARGET, axis=1))
         labels: ndarray = numpy.asarray(wine_set[TARGET].values.tolist())
 
         features_train, features_test, labels_train, labels_test = model_selection.train_test_split(features, labels,
@@ -24,5 +24,4 @@ class AgglomerativeHierarchicalClusteringClass:
         accuracy = sklearn.metrics.accuracy_score(labels_test, predictions)
         ##print(cls.multiLayerPercetronString, "predicitons", predictions)
         print(cls.algo_name, "accuracy", accuracy)
-        print("ran", cls.algo_name)
         return algorithm

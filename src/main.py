@@ -27,10 +27,10 @@ from src.plotting.WinePlot import plot_hist_wine_set, plot_wine_set
 
 ALGO = True
 PLOT = False
-NORMALIZE = True
-DISCRETIZE = True
-REDUCE = True
-REMOVE = True
+NORMALIZE = False
+DISCRETIZE = False
+REDUCE = False
+REMOVE = False
 ORIGINAL = True
 
 
@@ -46,17 +46,8 @@ def run_algos(wine_set: DataFrame, title: str):
     agglomerative = AgglomerativeHierarchicalClusteringClass.run(wine_set=wine_set)
     dbscan: DBSCAN = DBScanClass.run(wine_set=wine_set)
     kmeans: KMeans = KMeansClass.run(wine_set=wine_set)
+    # endregion
     print(spacer, "ENDRUN", title, spacer)
-
-
-# endregion
-
-def plot_raw_dataset():
-    wine_set_red: DataFrame = CsvLoader.load_dataframe('%s' % RED_CSV)
-    wine_set_white: DataFrame = CsvLoader.load_dataframe('%s' % WHITE_CSV)
-    plot_hist_wine_set(wine_set_red, "wine_set_red", bins=30)
-    plot_hist_wine_set(wine_set_white, "wine_set_white", bins=30)
-
 
 def main():
     random.seed(1)
@@ -73,10 +64,6 @@ def main():
 
         wine_set_list.append((original_wine_set_red, "original_wine_set_red"))
         wine_set_list.append((original_wine_set_white, "original_wine_set_white"))
-
-    if PLOT:
-        plot_wine_set(wine_set_red, plt_figure_name="wine_set_red_plot")
-        plot_raw_dataset()
 
     if REMOVE:
         removed_10_set_red = copy.deepcopy(wine_set_red)
@@ -145,8 +132,14 @@ def main():
         reduce(wine_set=reduced_set_white, correlations=reduced_set_correlations_white)
         wine_set_list.append((reduced_set_white, "reduced_set_white"))
 
+    if PLOT:
+        plot_wine_set(wine_set_red, plt_figure_name="wine_set_red_plot")
+        plot_wine_set(wine_set_white, plt_figure_name="wine_set_white_plot")
+        plot_hist_wine_set(wine_set_red, "wine_set_red", bins=30)
+        plot_hist_wine_set(wine_set_white, "wine_set_white", bins=30)
+
     if ALGO:
-        # make a dataframe with algorithm as rows and columns as tipe of treatment
+        # make a dataframe with algorithm as rows and columns as type of treatment
         for set in wine_set_list:
             run_algos(wine_set=set[0], title=set[1])
 
