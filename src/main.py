@@ -55,8 +55,8 @@ def main():
 
     wine_set_list: List[(DataFrame, str)] = []
 
-    wine_set_red: DataFrame = CsvLoader.load_dataframe('%s' % RED_CSV)
-    wine_set_white: DataFrame = CsvLoader.load_dataframe('%s' % WHITE_CSV)
+    wine_set_red: DataFrame = CsvLoader.load_raw_dataframe('%s' % RED_CSV)
+    wine_set_white: DataFrame = CsvLoader.load_raw_dataframe('%s' % WHITE_CSV)
 
     if ORIGINAL:
         original_wine_set_red = copy.deepcopy(wine_set_red)
