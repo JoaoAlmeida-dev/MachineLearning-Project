@@ -37,7 +37,7 @@ def normalize_set_range(wine_set: DataFrame, range_dataframe: DataFrame, set_nam
     _normalize(wine_set=wine_set, normalizing_operation=_range_item)
 
 
-def normalize_set_mean(wine_set: DataFrame):
+def normalize_standard_scaler(wine_set: DataFrame):
 
     variables = FEATURES
     target = TARGET

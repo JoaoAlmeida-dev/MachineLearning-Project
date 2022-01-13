@@ -29,7 +29,7 @@ class KNNClass:
         print(cls.algo_name, "accuracy", accuracy)
 
 
-        return algorithm
+        return algorithm, accuracy
 
 
 

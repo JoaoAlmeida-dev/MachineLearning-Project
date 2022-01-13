@@ -24,5 +24,5 @@ class DBScanClass:
         accuracy = sklearn.metrics.accuracy_score(labels_test, predictions)
         ##print(cls.multiLayerPercetronString, "predicitons", predictions)
         print(cls.algo_name, "accuracy", accuracy)
-        return algorithm
+        return algorithm,accuracy
 
