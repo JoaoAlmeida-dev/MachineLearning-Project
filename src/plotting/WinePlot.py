@@ -11,8 +11,8 @@ from src.constants.Constants import HEADERS, FEATURES, N_VARIABLES, TARGET
 
 
 def plot_hist_wine_set(wine_set: DataFrame, plt_figure_name: str, bins: int):
-    my_path = os.path.join(os.path.abspath(__file__), "..", "data_understanding",)
-    file_name = os.path.join(my_path,plt_figure_name)
+    my_path = os.path.join(os.path.abspath(__file__), "..", "data_understanding", )
+    file_name = os.path.join(my_path, plt_figure_name)
     if not os.path.exists(my_path):
         os.makedirs(my_path)
 
@@ -25,22 +25,22 @@ def plot_hist_wine_set(wine_set: DataFrame, plt_figure_name: str, bins: int):
         plt.title(header_string)
         wine_set.loc[:, header_string].plot.hist(bins=bins)
 
-
     plt.tight_layout()
     plt.savefig(file_name)
     plt.show()
 
-def plot_means_red_white(wine_set_red: DataFrame,wine_set_white: DataFrame):
-    plt_figure_name:str = "means_compare_plot"
+
+def plot_means_red_white(wine_set_red: DataFrame, wine_set_white: DataFrame):
+    plt_figure_name: str = "means_compare_plot"
     my_path = os.path.join(os.path.abspath(__file__), "..", "data_understanding", )
-    file_name = os.path.join(my_path,plt_figure_name )
+    file_name = os.path.join(my_path, plt_figure_name)
     if not os.path.exists(my_path):
         os.makedirs(my_path)
     index = wine_set_red.columns
     df = pandas.DataFrame({
-        "red_whine":wine_set_red.mean(axis=0),
-        "white_whine":wine_set_white.mean(axis=0),
-    },index = index)
+        "red_wine": wine_set_red.mean(axis=0),
+        "white_wine": wine_set_white.mean(axis=0),
+    }, index=index)
     df.plot.barh()
 
     plt.title(plt_figure_name)
@@ -48,9 +48,10 @@ def plot_means_red_white(wine_set_red: DataFrame,wine_set_white: DataFrame):
     plt.savefig(file_name)
     plt.show()
 
+
 def plot_wine_set(wine_set: DataFrame, plt_figure_name: str):
-    my_path = os.path.join(os.path.abspath(__file__), "..", "data_understanding",)
-    file_name = os.path.join(my_path,plt_figure_name)
+    my_path = os.path.join(os.path.abspath(__file__), "..", "data_understanding", )
+    file_name = os.path.join(my_path, plt_figure_name)
     if not os.path.exists(my_path):
         os.makedirs(my_path)
 
@@ -76,11 +77,10 @@ def plot_by_features(wine_set: DataFrame, plt_figure_name: str):
 
 
 def plot_decision_regions_algo(wine_set: DataFrame, algorithm, algorithm_name: str, wine_set_title: str):
-    my_path = os.path.join(os.path.abspath(__file__), "..", "res", wine_set_title, algorithm_name,)
-    file_name = wine_set_title+"_"+algorithm_name
+    my_path = os.path.join(os.path.abspath(__file__), "..", "res", wine_set_title, algorithm_name, )
+    file_name = wine_set_title + "_" + algorithm_name
     if not os.path.exists(my_path):
         os.makedirs(my_path)
-
 
     features_df: DataFrame = wine_set.drop(labels=TARGET, axis=1)
     labels_df: DataFrame = wine_set[TARGET]
@@ -101,21 +101,21 @@ def plot_decision_regions_algo(wine_set: DataFrame, algorithm, algorithm_name: s
                                                      8: wine_set.iloc[:, 8].max(), 9: wine_set.iloc[:, 9].max(),
                                                      10: wine_set.iloc[:, 10].max()})
 
-        #plt.savefig(cwd_path +"\\res\\" + wine_set_title + "\\" + algorithm_name + "\\DecisionRegion.svg")
-        plt.savefig(os.path.join(my_path,file_name+"_DecisionRegion.svg"))
+        # plt.savefig(cwd_path +"\\res\\" + wine_set_title + "\\" + algorithm_name + "\\DecisionRegion.svg")
+        plt.savefig(os.path.join(my_path, file_name + "_DecisionRegion.svg"))
     except:
         print(algorithm_name + " cant run plot_decision_regions")
     try:
         plt.title(algorithm_name + " learning_curve")
         skplt.estimators.plot_learning_curve(clf=algorithm, X=features_df, y=labels_df, cv=7, shuffle=True)
-        #plt.savefig(cwd_path + "\\res\\" + wine_set_title + "\\" + algorithm_name + "\\LearningCurve.svg")
-        plt.savefig(os.path.join(my_path,file_name+"_LearningCurve.svg"))
+        # plt.savefig(cwd_path + "\\res\\" + wine_set_title + "\\" + algorithm_name + "\\LearningCurve.svg")
+        plt.savefig(os.path.join(my_path, file_name + "_LearningCurve.svg"))
     except:
         print(algorithm_name + " cant run plot_learning_curve")
     try:
-        skplt.estimators.plot_feature_importances(algorithm, feature_names=wine_set.columns[:-1:],x_tick_rotation=90 );
-        #plt.savefig(cwd_path + "\\res\\" + wine_set_title + "\\" + algorithm_name + "\\FeatureImportances.svg")
-        plt.savefig(os.path.join(my_path,file_name+"_FeatureImportances.svg"))
+        skplt.estimators.plot_feature_importances(algorithm, feature_names=wine_set.columns[:-1:], x_tick_rotation=90);
+        # plt.savefig(cwd_path + "\\res\\" + wine_set_title + "\\" + algorithm_name + "\\FeatureImportances.svg")
+        plt.savefig(os.path.join(my_path, file_name + "_FeatureImportances.svg"))
     except:
         print(algorithm_name + " cant run plot_feature_importances")
 
