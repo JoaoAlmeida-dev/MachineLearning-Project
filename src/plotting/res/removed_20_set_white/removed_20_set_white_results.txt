@@ -1,0 +1,6 @@
+knn_accuracy,0.45408163265306123
+decisionTree_accuracy,0.45
+mlp_accuracy,0.46530612244897956
+agglomerative_accuracy,0.0020408163265306124
+dbscan_accuracy,0.0
+kmeans_accuracy,0.11020408163265306
