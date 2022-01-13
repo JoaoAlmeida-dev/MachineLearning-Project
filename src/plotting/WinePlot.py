@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import mlxtend
 import numpy as np
+import pandas
 from mlxtend.plotting import plot_decision_regions
 from pandas import DataFrame
 import scikitplot as skplt
@@ -10,9 +11,8 @@ from src.constants.Constants import HEADERS, FEATURES, N_VARIABLES, TARGET
 
 
 def plot_hist_wine_set(wine_set: DataFrame, plt_figure_name: str, bins: int):
-
-    my_path = os.path.join(os.path.abspath(__file__), "..", "plot", wine_set_title, algorithm_name,)
-    file_name = plt_figure_name
+    my_path = os.path.join(os.path.abspath(__file__), "..", "data_understanding",)
+    file_name = os.path.join(my_path,plt_figure_name)
     if not os.path.exists(my_path):
         os.makedirs(my_path)
 
@@ -25,16 +25,39 @@ def plot_hist_wine_set(wine_set: DataFrame, plt_figure_name: str, bins: int):
         plt.title(header_string)
         wine_set.loc[:, header_string].plot.hist(bins=bins)
 
-    plt.savefig(file_name)
 
     plt.tight_layout()
+    plt.savefig(file_name)
     plt.show()
 
+def plot_means_red_white(wine_set_red: DataFrame,wine_set_white: DataFrame):
+    plt_figure_name:str = "means_compare_plot"
+    my_path = os.path.join(os.path.abspath(__file__), "..", "data_understanding", )
+    file_name = os.path.join(my_path,plt_figure_name )
+    if not os.path.exists(my_path):
+        os.makedirs(my_path)
+    index = wine_set_red.columns
+    df = pandas.DataFrame({
+        "red_whine":wine_set_red.mean(axis=0),
+        "white_whine":wine_set_white.mean(axis=0),
+    },index = index)
+    df.plot.barh()
+
+    plt.title(plt_figure_name)
+    plt.tight_layout()
+    plt.savefig(file_name)
+    plt.show()
 
 def plot_wine_set(wine_set: DataFrame, plt_figure_name: str):
+    my_path = os.path.join(os.path.abspath(__file__), "..", "data_understanding",)
+    file_name = os.path.join(my_path,plt_figure_name)
+    if not os.path.exists(my_path):
+        os.makedirs(my_path)
+
     wine_set.plot()
     plt.title(plt_figure_name)
     plt.tight_layout()
+    plt.savefig(file_name)
     plt.show()
 
 

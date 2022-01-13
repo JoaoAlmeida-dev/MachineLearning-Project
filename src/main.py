@@ -27,12 +27,10 @@ from src.helper.Correlation import correlate
 from src.helper.RandomRemoval import random_removal_mean
 from src.loader import CsvLoader
 # from src.models.WineSet import WineSet
-from src.plotting.WinePlot import plot_hist_wine_set, plot_wine_set, plot_decision_regions_algo
-import matplotlib.pyplot as plt
-import scikitplot as skplt
+from src.plotting.WinePlot import plot_hist_wine_set, plot_wine_set, plot_decision_regions_algo, plot_means_red_white
 
-ALGO = True
-PLOT = False
+ALGO = False
+PLOT = True
 NORMALIZE = False
 DISCRETIZE = False
 REDUCE = False
@@ -162,6 +160,8 @@ def main():
         wine_set_list.append((reduced_set_white, "reduced_set_white"))
 
     if PLOT:
+        plot_means_red_white(wine_set_red=wine_set_red,wine_set_white=wine_set_white, )
+
         plot_wine_set(wine_set_red, plt_figure_name="wine_set_red_plot")
         plot_wine_set(wine_set_white, plt_figure_name="wine_set_white_plot")
         plot_hist_wine_set(wine_set_red, "wine_set_red", bins=30)
