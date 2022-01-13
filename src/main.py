@@ -2,7 +2,11 @@ import copy
 import random
 from typing import List
 
+import mlxtend
+import numpy
+from numpy import ndarray
 from pandas import DataFrame
+from sklearn import model_selection
 from sklearn.cluster import DBSCAN, KMeans
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
@@ -15,7 +19,7 @@ from src.algorithms.unsupervised.AgglomerativeHierarchicalClusteringClass import
     AgglomerativeHierarchicalClusteringClass
 from src.algorithms.unsupervised.DBScanClass import DBScanClass
 from src.algorithms.unsupervised.KMeansClass import KMeansClass
-from src.constants.Constants import RED_CSV, WHITE_CSV, MIN_MAX, CORRELATIONS
+from src.constants.Constants import RED_CSV, WHITE_CSV, MIN_MAX, CORRELATIONS, TARGET
 from src.dataTreatment.DataDiscretization import discretize
 from src.dataTreatment.DataNormalization import normalize_set_log, normalize_set_range, normalize_set_mean
 from src.dataTreatment.DataReduction import reduce
@@ -23,7 +27,9 @@ from src.helper.Correlation import correlate
 from src.helper.RandomRemoval import random_removal_mean
 from src.loader import CsvLoader
 # from src.models.WineSet import WineSet
-from src.plotting.WinePlot import plot_hist_wine_set, plot_wine_set
+from src.plotting.WinePlot import plot_hist_wine_set, plot_wine_set, plot_decision_regions_algo
+import matplotlib.pyplot as plt
+import scikitplot as skplt
 
 ALGO = True
 PLOT = False
@@ -37,16 +43,39 @@ ORIGINAL = True
 def run_algos(wine_set: DataFrame, title: str):
     spacer: str = "=========================="
     print(spacer, "RUNNING", title, spacer)
+
+    features: ndarray = numpy.asarray(wine_set.drop(labels=TARGET, axis=1))
+    labels: ndarray = numpy.asarray(wine_set[TARGET].values.tolist())
+
+    features_train, features_test, labels_train, labels_test = model_selection.train_test_split(features, labels,
+                                                                                                test_size=0.2)
+    labels_train = labels_train.ravel()
+
     # region Supervised
-    knn: KNeighborsClassifier = KNNClass.run(wine_set=wine_set)
-    decisionTree: DecisionTreeClassifier = DecisionTreeClass.run(wine_set=wine_set)
-    mlp: MLPClassifier = MultiLayerPercetronClass.run(wine_set=wine_set)
+    knn: KNeighborsClassifier = KNNClass.run(features_train, features_test, labels_train, labels_test)
+    plot_decision_regions_algo(wine_set=wine_set,wine_set_title=title, algorithm=knn, algorithm_name="KNN")
+
+    decisionTree: DecisionTreeClassifier = DecisionTreeClass.run(features_train, features_test, labels_train, labels_test)
+    plot_decision_regions_algo(wine_set=wine_set,wine_set_title=title, algorithm=decisionTree, algorithm_name="DecisionTree")
+
+    mlp: MLPClassifier = MultiLayerPercetronClass.run(features_train, features_test, labels_train, labels_test)
+    plot_decision_regions_algo(wine_set=wine_set,wine_set_title=title, algorithm=mlp, algorithm_name="MLPClassifier")
+
     # endregion
     # region Unsupervised
     agglomerative = AgglomerativeHierarchicalClusteringClass.run(wine_set=wine_set)
+    plot_decision_regions_algo(wine_set=wine_set,wine_set_title=title, algorithm=agglomerative, algorithm_name="Agglomerative")
+
     dbscan: DBSCAN = DBScanClass.run(wine_set=wine_set)
+    plot_decision_regions_algo(wine_set=wine_set,wine_set_title=title, algorithm=dbscan, algorithm_name="DBSCAN")
+
     kmeans: KMeans = KMeansClass.run(wine_set=wine_set)
+    plot_decision_regions_algo(wine_set=wine_set,wine_set_title=title, algorithm=kmeans, algorithm_name="Kmeans")
     # endregion
+
+    # plot_decision_regions_algo(features_df=features_train,labels_df=labels_train,algorithm= algorithm)
+    #mlxtend.plotting.plot_decision_regions(X=features_train, y=labels_train, clf=decisionTree)
+
     print(spacer, "ENDRUN", title, spacer)
 
 def main():
@@ -114,11 +143,11 @@ def main():
 
     if DISCRETIZE:
         discretized_set_red = copy.deepcopy(wine_set_red)
-        discretize(wine_set=discretized_set_red, num_bins=5)
+        discretize(wine_set=discretized_set_red, num_bins=3)
         wine_set_list.append((discretized_set_red, "discretized_set_red"))
 
         discretized_set_white = copy.deepcopy(wine_set_white)
-        discretize(wine_set=discretized_set_white, num_bins=5)
+        discretize(wine_set=discretized_set_white, num_bins=3)
         wine_set_list.append((discretized_set_white, "discretized_set_white"))
 
     if REDUCE:

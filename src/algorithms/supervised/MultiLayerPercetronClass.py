@@ -13,13 +13,8 @@ class MultiLayerPercetronClass:
     algo_name:str = "MultiLayerPercetron"
 
     @classmethod
-    def run(cls, wine_set: DataFrame) -> MLPClassifier:
-        features: ndarray = numpy.asarray(wine_set.drop(labels=TARGET, axis=1))
-        labels: ndarray = numpy.asarray(wine_set[TARGET].values.tolist())
+    def run(cls, features_train, features_test, labels_train, labels_test) -> MLPClassifier:
 
-        features_train, features_test, labels_train, labels_test = model_selection.train_test_split(features, labels,
-                                                                                                    test_size=0.2)
-        labels_train = labels_train.ravel()
         algorithm: MLPClassifier = MLPClassifier(max_iter=3000)
         algorithm.fit(features_train, labels_train)
 
